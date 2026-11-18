@@ -1,0 +1,19 @@
+{
+  "name": "الغياب اليومي - عروة بن الزبير الابتدائية",
+  "short_name": "الغياب اليومي",
+  "description": "تسجيل ومتابعة الغياب اليومي لطلاب ابتدائية عروة بن الزبير",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0B4F6C",
+  "theme_color": "#0F766E",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

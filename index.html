@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>الغياب اليومي</title>
+<meta name="theme-color" content="#0F766E">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="الغياب اليومي">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root { --c1:#14967F; --c2:#0B4F6C; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html,body { height:100%; background:#fff; font-family:'Tajawal',system-ui,sans-serif; overflow:hidden; }
+  #app { position:fixed; inset:0; width:100%; height:100%; border:0;
+         padding-top:env(safe-area-inset-top); background:#fff; }
+  #splash { position:fixed; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+            gap:14px; color:#fff; text-align:center; padding:24px;
+            background:linear-gradient(135deg,var(--c1),var(--c2)); transition:opacity .4s; z-index:5; }
+  #splash img { width:112px; height:112px; border-radius:26px; box-shadow:0 10px 30px rgba(0,0,0,.25); }
+  #splash h1 { font-size:26px; font-weight:700; }
+  #splash p { font-size:15px; opacity:.9; }
+  .bar { width:140px; height:4px; border-radius:2px; background:rgba(255,255,255,.25); overflow:hidden; margin-top:8px; }
+  .bar i { display:block; width:40%; height:100%; background:#F59E0B; border-radius:2px; animation:mv 1.1s infinite ease-in-out; }
+  @keyframes mv { 0%{transform:translateX(120%)} 100%{transform:translateX(-260%)} }
+  #help { display:none; margin-top:18px; font-size:14px; line-height:1.9; }
+  #help a, .btn { display:inline-block; margin-top:8px; background:#fff; color:var(--c2); font-weight:700;
+                  padding:10px 22px; border-radius:12px; text-decoration:none; border:0; font-family:inherit; font-size:15px; }
+  .hide { opacity:0; pointer-events:none; }
+</style>
+</head>
+<body>
+<div id="splash">
+  <img src="icon-512.png" alt="">
+  <h1>الغياب اليومي</h1>
+  <p>ابتدائية عروة بن الزبير</p>
+  <div class="bar"><i></i></div>
+  <div id="help"></div>
+</div>
+<iframe id="app" title="الغياب اليومي" allow="clipboard-write"></iframe>
+
+<script>
+  const APP_URL = 'https://script.google.com/macros/s/AKfycbxQ1vYDqo4UJu_gCzA2opao1g0H01fB7N4A1Q5nI2lfZoProm9TIWWmqboMLWtrk_1i/exec';
+
+  const splash = document.getElementById('splash'), help = document.getElementById('help'), frame = document.getElementById('app');
+  function showHelp(html){ help.innerHTML = html; help.style.display = 'block'; document.querySelector('.bar').style.display='none'; }
+
+  if (!navigator.onLine) {
+    showHelp('لا يوجد اتصال بالإنترنت.<br><button class="btn" onclick="location.reload()">إعادة المحاولة</button>');
+  } else {
+    frame.src = APP_URL;
+    frame.addEventListener('load', () => setTimeout(() => splash.classList.add('hide'), 300));
+    setTimeout(() => { if (!splash.classList.contains('hide'))
+      showHelp('التحميل يستغرق وقتًا أطول من المعتاد…<br><a href="' + APP_URL + '">فتح التطبيق مباشرة</a>'); }, 15000);
+  }
+  window.addEventListener('online', () => location.reload());
+
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
+</script>
+</body>
+</html>
